@@ -1,0 +1,366 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#100b20">
+  <meta name="description" content="Un pequeño jardín violeta creado para celebrar el Día de la Obstetricia.">
+  <title>Un pequeño jardín para Isa </title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+  
+<!-- Motor 3D: Three.js -->
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js"
+  }
+}
+</script>
+
+<!-- Motor de animación cinematográfica -->
+<script
+  src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"
+  defer>
+</script>
+
+</head>
+
+<body>
+    
+<!-- Fondo tridimensional interactivo -->
+<div id="three-background" aria-hidden="true"></div>
+
+  <canvas id="particles" aria-hidden="true"></canvas>
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <main class="page">
+    <header class="topbar">
+      <a href="#" class="brand" aria-label="Inicio">
+        <span class="brand-mark">✳</span>
+        <span>Detalle especial C:</span>
+      </a>
+      <span class="top-note">
+        <span class="status-dot"></span>
+        Hecho con cariño para tu
+      </span>
+    </header>
+
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy reveal">
+        <p class="eyebrow">
+          <span class="eyebrow-line"></span>
+          10 DE OCTUBRE · UN DÍA ESPECIAL
+        </p>
+
+        <h1 id="hero-title">
+          Feliz día de la
+          <span class="title-highlight">Obstetricia</span>
+          <span class="title-small">Isa, hoy también florece algo bonito.</span>
+        </h1>
+
+        <p class="hero-description">
+          Para quien eligió estar presente en uno de los milagros más hermosos de la vida. 
+          Que tu vocación siga iluminando caminos, que tus sueños florezcan y que la vida te devuelva toda la ternura que llevas dentro. 💜🌷
+        </p>
+
+        <div class="hero-actions">
+          <button class="button button-primary" id="openLetter">
+            <span>Unas palabras para ti</span>
+            <span class="button-arrow" aria-hidden="true">↗</span>
+          </button>
+
+          <button class="button button-quiet" id="scrollGarden">
+            Presioname <span aria-hidden="true">↓</span>
+          </button>
+        </div>
+
+        <div class="signature">
+          <span class="signature-line"></span>
+          <span>Un pequeño detalle, con mucho cariño.</span>
+        </div>
+      </div>
+
+      <div class="hero-art reveal" aria-label="Ilustración de un ramo de flores moradas">
+        <div class="art-orbit orbit-one"></div>
+        <div class="art-orbit orbit-two"></div>
+        <div class="art-glow"></div>
+
+        <div class="art-label art-label-top">
+          <span class="label-sparkle">✧</span>
+        </div>
+
+        <svg class="bouquet" viewBox="0 0 440 510"
+             role="img" aria-labelledby="flowerTitle">
+          <title id="flowerTitle">Ramo ilustrado de flores violetas y lavanda</title>
+          <defs>
+            <linearGradient id="petal" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#f1d8ff"/>
+              <stop offset="50%" stop-color="#b58ae9"/>
+              <stop offset="100%" stop-color="#7650bd"/>
+            </linearGradient>
+            <linearGradient id="petalLight" x1="0" y1="0" x2="0.8" y2="1">
+              <stop offset="0%" stop-color="#fff0ff"/>
+              <stop offset="100%" stop-color="#c69bea"/>
+            </linearGradient>
+            <linearGradient id="stem" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#48694f"/>
+              <stop offset="100%" stop-color="#9ab88b"/>
+            </linearGradient>
+            <radialGradient id="center">
+              <stop offset="0%" stop-color="#fff4c6"/>
+              <stop offset="70%" stop-color="#e8bf83"/>
+              <stop offset="100%" stop-color="#b98154"/>
+            </radialGradient>
+
+            <g id="flower">
+              <ellipse cy="-26" rx="13" ry="25" fill="url(#petal)"/>
+              <ellipse cy="-26" rx="13" ry="25" fill="url(#petal)" transform="rotate(45)"/>
+              <ellipse cy="-26" rx="13" ry="25" fill="url(#petal)" transform="rotate(90)"/>
+              <ellipse cy="-26" rx="13" ry="25" fill="url(#petal)" transform="rotate(135)"/>
+              <ellipse cy="-26" rx="13" ry="25" fill="url(#petal)" transform="rotate(180)"/>
+              <ellipse cy="-26" rx="13" ry="25" fill="url(#petal)" transform="rotate(225)"/>
+              <ellipse cy="-26" rx="13" ry="25" fill="url(#petal)" transform="rotate(270)"/>
+              <ellipse cy="-26" rx="13" ry="25" fill="url(#petal)" transform="rotate(315)"/>
+              <circle r="13" fill="url(#center)"/>
+              <circle r="6" fill="#fff0c2" opacity=".75"/>
+            </g>
+
+            <g id="smallFlower">
+              <ellipse cy="-17" rx="8" ry="16" fill="url(#petalLight)"/>
+              <ellipse cy="-17" rx="8" ry="16" fill="url(#petalLight)" transform="rotate(60)"/>
+              <ellipse cy="-17" rx="8" ry="16" fill="url(#petalLight)" transform="rotate(120)"/>
+              <ellipse cy="-17" rx="8" ry="16" fill="url(#petalLight)" transform="rotate(180)"/>
+              <ellipse cy="-17" rx="8" ry="16" fill="url(#petalLight)" transform="rotate(240)"/>
+              <ellipse cy="-17" rx="8" ry="16" fill="url(#petalLight)" transform="rotate(300)"/>
+              <circle r="8" fill="url(#center)"/>
+            </g>
+          </defs>
+
+          <!-- Tall stems -->
+          <g fill="none" stroke="url(#stem)" stroke-width="4" stroke-linecap="round">
+            <path d="M218 432 Q185 330 118 105"/>
+            <path d="M220 432 Q222 305 222 76"/>
+            <path d="M220 432 Q260 300 321 135"/>
+            <path d="M215 432 Q155 345 80 228"/>
+            <path d="M225 432 Q292 342 365 239"/>
+            <path d="M220 432 Q205 320 166 196"/>
+            <path d="M225 432 Q256 336 273 210"/>
+          </g>
+
+          <!-- Leaves -->
+          <g fill="#64896a">
+            <path d="M172 318 Q109 303 115 264 Q158 273 172 318Z"/>
+            <path d="M172 319 Q203 268 239 282 Q220 313 172 319Z"/>
+            <path d="M255 325 Q306 277 334 301 Q305 329 255 325Z"/>
+            <path d="M196 356 Q147 337 151 305 Q186 321 196 356Z"/>
+            <path d="M251 365 Q289 333 314 351 Q284 373 251 365Z"/>
+            <path d="M143 253 Q103 235 108 208 Q137 222 143 253Z"/>
+            <path d="M298 274 Q330 237 354 251 Q333 275 298 274Z"/>
+          </g>
+          <g fill="none" stroke="#b4c99a" stroke-width="1.5" opacity=".8">
+            <path d="M172 318 L126 272"/>
+            <path d="M172 319 L228 288"/>
+            <path d="M255 325 L326 307"/>
+            <path d="M196 356 L160 315"/>
+            <path d="M251 365 L306 355"/>
+          </g>
+
+          <!-- Lavender sprigs -->
+          <g fill="#bfa1ed">
+            <ellipse cx="99" cy="166" rx="7" ry="14" transform="rotate(-30 99 166)"/>
+            <ellipse cx="111" cy="182" rx="7" ry="13" transform="rotate(-20 111 182)"/>
+            <ellipse cx="120" cy="200" rx="7" ry="13" transform="rotate(-15 120 200)"/>
+            <ellipse cx="329" cy="184" rx="7" ry="14" transform="rotate(28 329 184)"/>
+            <ellipse cx="316" cy="201" rx="7" ry="13" transform="rotate(20 316 201)"/>
+            <ellipse cx="304" cy="218" rx="7" ry="13" transform="rotate(15 304 218)"/>
+            <ellipse cx="173" cy="143" rx="6" ry="12"/>
+            <ellipse cx="176" cy="160" rx="6" ry="12"/>
+            <ellipse cx="180" cy="177" rx="6" ry="12"/>
+            <ellipse cx="270" cy="144" rx="6" ry="12"/>
+            <ellipse cx="266" cy="161" rx="6" ry="12"/>
+            <ellipse cx="262" cy="178" rx="6" ry="12"/>
+          </g>
+
+          <!-- Flowers -->
+          <g class="flower-head">
+            <g transform="translate(118 104) scale(1.08)">
+              <use href="#flower"/>
+            </g>
+            <g transform="translate(222 76) scale(1.18)">
+              <use href="#flower"/>
+            </g>
+            <g transform="translate(321 134) scale(1.04)">
+              <use href="#flower"/>
+            </g>
+            <g transform="translate(80 228) scale(.83)">
+              <use href="#smallFlower"/>
+            </g>
+            <g transform="translate(365 239) scale(.9)">
+              <use href="#smallFlower"/>
+            </g>
+            <g transform="translate(166 196) scale(.85)">
+              <use href="#smallFlower"/>
+            </g>
+            <g transform="translate(273 210) scale(.85)">
+              <use href="#smallFlower"/>
+            </g>
+          </g>
+
+          <!-- Ribbon -->
+          <path d="M186 385 Q220 402 254 385 L245 420 Q220 438 195 420Z"
+                fill="#c39be8" stroke="#e6caff" stroke-width="1.5"/>
+          <path d="M201 412 L184 463 Q205 452 220 429Z" fill="#9a72cf"/>
+          <path d="M239 412 L257 463 Q235 451 220 429Z" fill="#b58bdf"/>
+          <path d="M188 394 Q220 410 252 394" fill="none"
+                stroke="#f2ddff" stroke-width="2"/>
+        </svg>
+
+        <div class="art-label art-label-bottom">
+          <span>✦</span>
+          <span>✦</span>
+        </div>
+      </div>
+
+      <div class="hero-bottom-note">
+        <span class="tiny-star">✧</span>
+        <span>Desliza despacito, hay algo más para ti</span>
+        <span class="tiny-star">✧</span>
+      </div>
+    </section>
+
+    <section class="garden-section" id="garden">
+      <div class="section-heading reveal">
+        <p class="eyebrow">02 · UNAS FLORES PARA TI</p>
+        <h2>Que la vida te regale<br><span>mil razones para florecer.</span></h2>
+        <p>
+          Porque cuidar, acompañar y dar tranquilidad también es una
+          forma muy bonita de cambiar el mundo.
+        </p>
+      </div>
+
+      <div class="flower-cards">
+        <article class="flower-card reveal">
+          <div class="card-icon" aria-hidden="true">✿</div>
+          <span class="card-number">01 / TU VOCACIÓN</span>
+          <h3>Tu manera de cuidar</h3>
+          <p>
+            Que nunca dejes de iluminar con tu esencia los caminos que recorres y que la vida te regale tantas razones para sonreír como sueños llevas en el corazón.
+          </p>
+        </article>
+
+        <article class="flower-card reveal">
+          <div class="card-icon" aria-hidden="true">✧</div>
+          <span class="card-number">02 / TUS SUEÑOS</span>
+          <h3>Todo lo que te espera</h3>
+          <p>
+            Que lleguen oportunidades hermosas, metas cumplidas
+            y días que te recuerden lo capaz que eres.
+          </p>
+        </article>
+
+        <article class="flower-card flower-card-special reveal">
+          <div class="card-icon" aria-hidden="true">♡</div>
+          <span class="card-number">03 / UN PEQUEÑO DESEO</span>
+          <h3>Que también te cuiden</h3>
+          <p>
+            Ojalá nunca olvides que tú también mereces paciencia,
+            ternura, tranquilidad y motivos para sonreír.
+          </p>
+        </article>
+      </div>
+
+      <div class="quote-panel reveal">
+        <span class="quote-mark">“</span>
+        <p>
+          Hay personas que, sin darse cuenta,
+          consiguen alegrarte un poquito más el día.
+          <span> Tú tienes algo de eso.</span>
+        </p>
+        <span class="quote-decoration">✧ ✦ ✧</span>
+      </div>
+    </section>
+
+    <section class="final-section reveal">
+      <div class="final-flower" aria-hidden="true">✿</div>
+      <p class="eyebrow">03 · ANTES DE IRTE</p>
+      <h2>Un último detallito,<br><span>solo para ti.</span></h2>
+      <p class="final-description">
+        No hace falta una ocasión enorme para desearle algo bonito
+        a alguien. Hoy simplemente quería hacerlo a ti.
+      </p>
+      <button class="button button-primary final-button" id="openLetterBottom">
+        <span>Leer mi mensaje</span>
+        <span aria-hidden="true">♡</span>
+      </button>
+      <p class="final-footnote"></p>
+    </section>
+
+    <footer class="footer">
+      <span>✦</span>
+      <span class="footer-heart">✦</span>
+      <span>✦</span>
+    </footer>
+  </main>
+
+  <!-- Carta digital -->
+  <div class="letter-overlay" id="letterOverlay"
+       aria-hidden="true">
+    <section class="letter-modal" role="dialog"
+             aria-modal="true" aria-labelledby="letterTitle">
+      <button class="letter-close" id="closeLetter"
+              aria-label="Cerrar carta">×</button>
+
+      <div class="letter-paper">
+        <div class="letter-top-decoration">✧　❀　✧</div>
+        <p class="letter-overline">UNAS PALABRAS PARA TI</p>
+        <h2 id="letterTitle">Para Isa</h2>
+        <div class="letter-divider"><span>✦</span></div>
+
+        <div class="letter-message">
+          <p>Hola, Isa. 💜</p>
+          <p>
+            Quería dejarte un pequeño detalle por el Día de la
+            Obstetricia y desearte que te vaya demasiado bien en todo lo
+            que te propongas.
+          </p>
+          <p>
+            Ojalá sigas creciendo, cumpliendo tus metas y encontrando
+            razones para sentirte orgullosa de la persona en la que
+            te estás convirtiendo. Que nunca te falten la ilusión,
+            la tranquilidad y las ganas de seguir adelante.
+          </p>
+          <p>
+            A veces, sin darnos cuenta, hay personas que comienzan a ocupar un lugar especial en nuestros pensamientos. Y aunque no siempre encontremos las palabras para expresarlo, hay pequeños detalles que dicen mucho más de lo que imaginamos. 
+          </p>
+          <p>
+            Feliz Día de la Obstetricia, Isa.</p>
+            <p>
+            Cuídate mucho y nunca dejes de florecer.
+          </p>
+        </div>
+
+        <div class="letter-signature">
+          <span>Con mucho cariño.Akil</span>
+          <span class="signature-heart">♡</span>
+        </div>
+        <div class="letter-bottom-decoration">✿　✧　✿</div>
+      </div>
+    </section>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  
+<!-- Mejoras visuales avanzadas -->
+<script type="module" src="advanced.js"></script>
+
+</body>
+</html>
